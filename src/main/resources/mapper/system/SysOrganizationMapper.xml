@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biggirlo.system.mapper.SysOrganizationMapper">
+    <resultMap id="BaseResultMap" type="com.biggirlo.system.model.SysOrganization">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+        <result column="organization_code" jdbcType="VARCHAR" property="organizationCode" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="summary" jdbcType="VARCHAR" property="summary" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="is_available" jdbcType="TINYINT" property="isAvailable" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="create_by" jdbcType="INTEGER" property="createBy" />
+        <result column="update_by" jdbcType="INTEGER" property="updateBy" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+    <sql id="BaseTable">
+        bs_sys_organization
+    </sql>
+    <sql id="BaseColumns">
+        id,parent_id,organization_code,name,summary,remark,is_available,create_time,create_by,update_by,update_time
+    </sql>
+    <!--<sql id="GenerationType">-->
+    <!--DB_UUID ( select replace(uuid(),'-','') from dual )-->
+    <!--</sql>-->
+
+    <select id="search" resultMap="BaseResultMap">
+        select <include refid="BaseColumns" />
+        from <include refid="BaseTable" />
+    </select>
+</mapper>

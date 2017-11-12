@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biggirlo.system.mapper.SysRoleMenuMapper">
+    <resultMap id="BaseResultMap" type="com.biggirlo.system.model.SysRoleMenu">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="role_id" jdbcType="INTEGER" property="roleId" />
+        <result column="menu_id" jdbcType="INTEGER" property="menuId" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="create_by" jdbcType="INTEGER" property="createBy" />
+        <result column="update_by" jdbcType="INTEGER" property="updateBy" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+    <sql id="BaseTable">
+        bs_sys_role_menu
+    </sql>
+    <sql id="BaseColumns">
+        id,role_id,menu_id,create_time,create_by,update_by,update_time
+    </sql>
+    <select id="search" resultMap="BaseResultMap">
+        select <include refid="BaseColumns" />
+        from <include refid="BaseTable" />
+    </select>
+
+    <select id="searchRoleUsers" resultType="com.biggirlo.system.jopo.TreeNode">
+        SELECT
+        CASE
+	    when ISNULL(bsrm.role_id) or parent_id = 0 then FALSE
+	    ELSE TRUE
+        end as isSelect,
+        bsm.id ,bsm.menu_name as text,bsm.parent_id as parent,
+        CASE
+        WHEN bsm.type = 2 THEN 'fa fa-briefcase icon-state-success'
+        ELSE NULL END as icon
+        from bs_sys_menu bsm
+        LEFT JOIN bs_sys_role_menu bsrm
+        on bsm.id = bsrm.menu_id and bsrm.role_id = #{roId}
+    </select>
+
+    <delete id="deleteByCondtion" parameterType="com.biggirlo.system.jopo.parame.RoleMenuPalame">
+        DELETE FROM <include refid="BaseTable" />
+        WHERE role_id = #{roleId}
+    </delete>
+
+    <insert id="insertFromPalame" parameterType="com.biggirlo.system.jopo.parame.RoleMenuPalame">
+        INSERT INTO <include refid="BaseTable" /> (role_id,menu_id,create_time,create_by) VALUES
+        <foreach collection="menuIds" item="menuId" open="" separator="," close="" >
+            ( #{roleId},#{menuId},#{createTime},#{createBy} )
+        </foreach>
+    </insert>
+</mapper>

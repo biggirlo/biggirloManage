@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biggirlo.system.mapper.SysUserRoleMapper">
+    <resultMap id="BaseResultMap" type="com.biggirlo.system.model.SysUserRole">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="role_id" jdbcType="INTEGER" property="roleId" />
+        <result column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="create_by" jdbcType="INTEGER" property="createBy" />
+        <result column="update_by" jdbcType="INTEGER" property="updateBy" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+    <resultMap id="userRoleInfo" type="com.biggirlo.system.jopo.SysRoleUserInfo">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="role_id" jdbcType="INTEGER" property="roleId" />
+        <result column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="create_by" jdbcType="INTEGER" property="createBy" />
+        <result column="update_by" jdbcType="INTEGER" property="updateBy" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+    </resultMap>
+    <sql id="BaseTable">
+        bs_sys_user_role
+    </sql>
+    <sql id="BaseColumns">
+        id,role_id,user_id,create_time,create_by,update_by,update_time
+    </sql>
+    <sql id="userRoleInfoColumns">
+        bsur.id,bsur.role_id,bsur.user_id,bsur.create_time,bsur.create_by,bsur.update_by,bsur.update_time
+    </sql>
+
+    <select id="search" resultMap="BaseResultMap">
+        select <include refid="BaseColumns" />
+        from <include refid="BaseTable" />
+    </select>
+
+    <select id="selectUsersByRole" resultMap="userRoleInfo" parameterType="com.biggirlo.system.model.SysUserRole">
+        SELECT
+        <include refid="userRoleInfoColumns" />,bsu.name
+        from bs_sys_user_role bsur LEFT JOIN bs_sys_user bsu on bsur.user_id = bsu.id
+        <where>
+            <if test="roleId != null and roleId != ''">
+                bsur.role_id = #{roleId}
+            </if>
+        </where>
+    </select>
+
+</mapper>
