@@ -26,7 +26,13 @@ import java.util.List;
 import com.biggirlo.base.service.BaseService;
 import com.biggirlo.base.util.Code;
 import com.biggirlo.base.util.Restult;
+import com.biggirlo.system.jopo.search.MenuRoleSearch;
+import com.biggirlo.system.mapper.SysMenuMapper;
+import com.biggirlo.system.model.SysUserRole;
 import com.biggirlo.system.util.UserLoginUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.biggirlo.system.model.SysMenu;
@@ -40,21 +46,34 @@ import com.biggirlo.system.jopo.TreeNode;
 @Service("sysMenuService")
 public class SysMenuService extends BaseService<SysMenu, Long> {
 
+    @Autowired
+    private SysMenuMapper sysMenuMapper;
+
     /**
      * 获取所有的菜单 并生成树结构（用于菜单展示）
      * @return
      */
     public List<SysMenu> getTreeList() throws Exception{
-        List<SysMenu> treeMenus = new ArrayList<>();
-        //设置查询条件
-        SysMenu menuSearch = new SysMenu();
-        //设置类型为菜单类型
-        menuSearch.setType(TreeNode.MENU);
-            List<SysMenu> allMenus = select(menuSearch);
+
+        Subject subject = SecurityUtils.getSubject(); // 获取Subject单例对象
+        List<SysMenu> treeMenus = (List<SysMenu>) subject.getSession().getAttribute(UserLoginUtils.LOGIN_USER_MENUS_NAME);
+        if(treeMenus == null){
+            treeMenus = new ArrayList<>();
+            //根据角色获取菜单
+            List<SysUserRole> roles= (List<SysUserRole>) subject.getSession().getAttribute(UserLoginUtils.LOGIN_USER_ROLES_NAME);
+            //设置查询条件
+            MenuRoleSearch menuSearch = new MenuRoleSearch();
+            //设置类型为菜单类型
+            menuSearch.setMenuType(TreeNode.MENU);
+            menuSearch.setRoles(roles);
+            List<SysMenu> allMenus = sysMenuMapper.selectByRolesAuth(menuSearch);
             for(SysMenu menu: allMenus)
                 //一级菜单的父级id为0
                 if(menu.getParentId() == 0)
                     treeMenus.add(addChileMenu(menu,allMenus));
+            //存入session
+            subject.getSession().setAttribute(UserLoginUtils.LOGIN_USER_MENUS_NAME,treeMenus);
+        }
         return treeMenus;
     }
 

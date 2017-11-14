@@ -20,8 +20,11 @@
 package com.biggirlo.system.mapper;
 
 import com.biggirlo.base.mapper.BaseMapper;
+import com.biggirlo.system.jopo.search.MenuRoleSearch;
 import com.biggirlo.system.model.SysMenu;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <pre>
@@ -30,4 +33,11 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface SysMenuMapper extends BaseMapper<SysMenu> {
+
+    /**
+     * 根据条件查询
+     * @param menuSearch
+     * @return
+     */
+    List<SysMenu> selectByRolesAuth(MenuRoleSearch menuSearch);
 }

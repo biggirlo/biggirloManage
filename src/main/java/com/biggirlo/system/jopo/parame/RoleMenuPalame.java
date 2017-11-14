@@ -7,6 +7,8 @@
  */
 package com.biggirlo.system.jopo.parame;
 
+import com.biggirlo.system.model.SysUserRole;
+
 import java.util.Date;
 import java.util.List;
 
@@ -56,4 +58,5 @@ public class RoleMenuPalame {
     public void setCreateBy(Long createBy) {
         this.createBy = createBy;
     }
+
 }

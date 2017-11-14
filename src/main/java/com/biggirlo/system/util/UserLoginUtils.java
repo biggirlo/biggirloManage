@@ -18,7 +18,12 @@ import org.apache.shiro.SecurityUtils;
 public class UserLoginUtils {
 
     //保存到session的名字
-    public static final String LOGIN_SUER_SESSION_NAME = "currentUser";
+    public static final String LOGIN_USER_SESSION_NAME = "currentUser";
+    //用户所拥有的角色的名称
+    public static final String LOGIN_USER_ROLES_NAME = "userRoles";
+    //
+    public static final String LOGIN_USER_MENUS_NAME ="userMenus";
+
 
     //默认密码
     public static final String DEFAUTE_PASSWORD ="123456";
@@ -28,7 +33,7 @@ public class UserLoginUtils {
      * @return
      */
     public static final LoginUser getCurrentUser(){
-        return  (LoginUser) SecurityUtils.getSubject().getSession().getAttribute(LOGIN_SUER_SESSION_NAME);
+        return  (LoginUser) SecurityUtils.getSubject().getSession().getAttribute(LOGIN_USER_SESSION_NAME);
     }
 
     /**

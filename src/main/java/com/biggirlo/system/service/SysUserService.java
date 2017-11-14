@@ -26,6 +26,7 @@ import com.biggirlo.base.util.DecriptUtil;
 import com.biggirlo.base.util.Restult;
 import com.biggirlo.system.jopo.LoginUser;
 import com.biggirlo.system.mapper.SysUserMapper;
+import com.biggirlo.system.model.SysUserRole;
 import com.biggirlo.system.util.UserLoginUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -36,6 +37,7 @@ import org.springframework.stereotype.Service;
 import com.biggirlo.system.model.SysUser;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * <pre>
@@ -47,6 +49,9 @@ public class SysUserService extends BaseService<SysUser, Long> {
 
     @Autowired
     private SysUserMapper sysUserMapper;
+
+    @Autowired
+    private SysUserRoleService sysUserRoleService;
 
     /**
      * 保存编辑的数据
@@ -103,7 +108,13 @@ public class SysUserService extends BaseService<SysUser, Long> {
         LoginUser loginUser = new LoginUser();
         loginUser.setUser(dataUser);
         loginUser.setLoginTime(new Date());
-        subject.getSession().setAttribute(UserLoginUtils.LOGIN_SUER_SESSION_NAME,loginUser);
+        //获取所有的角色
+        SysUserRole sysUserRoleSearch = new SysUserRole();
+        sysUserRoleSearch.setUserId(dataUser.getId());
+        List<SysUserRole> userRoles = sysUserRoleService.select(sysUserRoleSearch);
+        //设置缓存
+        subject.getSession().setAttribute(UserLoginUtils.LOGIN_USER_SESSION_NAME,loginUser);
+        subject.getSession().setAttribute(UserLoginUtils.LOGIN_USER_ROLES_NAME,userRoles);
         return new Restult(Code.SUCCESS,subject.getSession().getId());
     }
 }

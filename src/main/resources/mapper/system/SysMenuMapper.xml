@@ -19,7 +19,7 @@
         bs_sys_menu
     </sql>
     <sql id="BaseColumns">
-        id,menu_code,menu_name,url,logo,type,parent_id,create_time,sort,create_by,update_by,update_time
+        id,menu_code,menu_name,url,menu_icon,type,parent_id,create_time,sort,create_by,update_by,update_time
     </sql>
     <!--<sql id="GenerationType">-->
     <!--DB_UUID ( select replace(uuid(),'-','') from dual )-->
@@ -28,6 +28,27 @@
     <select id="search" resultMap="BaseResultMap">
         select <include refid="BaseColumns" />
         from <include refid="BaseTable" />
+    </select>
+
+    <!--根据角色权限获取菜单-->
+    <select id="selectByRolesAuth" resultMap="BaseResultMap" parameterType="com.biggirlo.system.jopo.search.MenuRoleSearch">
+        SELECT <include refid="BaseColumns" />
+        FROM BS_SYS_MENU
+        <where>
+            ID in (
+            SELECT menu_id from BS_SYS_ROLE_MENU
+            <where>
+                <if test="roles != null and roles.size != 0">
+                    <foreach collection="roles" item="role" open="(" separator="or" close=")">
+                        role_id = #{role.roleId}
+                    </foreach>
+                </if>
+            </where>
+            )
+            <if test="menuType != null and menuType != ''">
+                AND type = #{menuType}
+            </if>
+        </where>
     </select>
 
 </mapper>
