@@ -55,7 +55,7 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         //自定义过滤器
         Map<String, Filter> filters = new HashMap<>();
-        filters.put("authc", new JWTOrAuthenticationFilter("http://localhost:10100"));
+        filters.put("authc", new JWTOrAuthenticationFilter(CorsConfig.getInstance().getAccessControlAllowOrigin()));
         shiroFilterFactoryBean.setFilters(filters);
         return shiroFilterFactoryBean;
     }
