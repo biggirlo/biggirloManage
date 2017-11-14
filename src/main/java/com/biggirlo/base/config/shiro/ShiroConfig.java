@@ -7,6 +7,8 @@
  */
 package com.biggirlo.base.config.shiro;
 
+
+import com.biggirlo.base.config.cors.CorsConfig;
 import com.biggirlo.base.config.shiro.filter.JWTOrAuthenticationFilter;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
