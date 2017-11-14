@@ -38,7 +38,7 @@
     <select id="selectUsersByRole" resultMap="userRoleInfo" parameterType="com.biggirlo.system.model.SysUserRole">
         SELECT
         <include refid="userRoleInfoColumns" />,bsu.name
-        from bs_sys_user_role bsur LEFT JOIN bs_sys_user bsu on bsur.user_id = bsu.id
+        from BS_SYS_USER_ROLE bsur LEFT JOIN BS_SYS_USER bsu on bsur.user_id = bsu.id
         <where>
             <if test="roleId != null and roleId != ''">
                 bsur.role_id = #{roleId}

@@ -11,7 +11,7 @@
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     </resultMap>
     <sql id="BaseTable">
-        bs_sys_role_menu
+        BS_SYS_ROLE_MENU
     </sql>
     <sql id="BaseColumns">
         id,role_id,menu_id,create_time,create_by,update_by,update_time
@@ -31,8 +31,8 @@
         CASE
         WHEN bsm.type = 2 THEN 'fa fa-briefcase icon-state-success'
         ELSE NULL END as icon
-        from bs_sys_menu bsm
-        LEFT JOIN bs_sys_role_menu bsrm
+        from BS_SYS_MENU bsm
+        LEFT JOIN BS_SYS_ROLE_MENU bsrm
         on bsm.id = bsrm.menu_id and bsrm.role_id = #{roId}
     </select>
 
