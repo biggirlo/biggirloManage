@@ -64,12 +64,13 @@ public class SysUserService extends BaseService<SysUser, Long> {
         userTemp.setUserCode(user.getUserCode());
         userTemp = selectOne(userTemp);
         if(user.getId() != null && (userTemp == null || userTemp.getId() ==  user.getId()) ) {
+            user.setPassword(user.getPassword() == null?null:DecriptUtil.MD5(user.getPassword()));
             user.setUpdateTime(new Date());
             user.setUpdateBy(UserLoginUtils.getCurrentUserId());
             rs = new Restult(Code.SUCCESS, update(user));
         }else if (user.getId() == null && userTemp == null) {
             //设置默认密码
-            user.setPassword(user.getPassword() == null?DecriptUtil.MD5(UserLoginUtils.DEFAUTE_PASSWORD):user.getPassword());
+            user.setPassword(user.getPassword() == null?DecriptUtil.MD5(UserLoginUtils.DEFAUTE_PASSWORD):DecriptUtil.MD5(user.getPassword()));
             user.setCreateTime(new Date());
             user.setCreateBy(UserLoginUtils.getCurrentUserId());
             rs = new Restult(Code.SUCCESS, insert(user));
