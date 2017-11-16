@@ -2,11 +2,9 @@ package com.biggirlo.base.service;
 
 import com.biggirlo.base.mapper.BaseMapper;
 import com.biggirlo.base.util.DataTablesParam;
-import com.biggirlo.system.model.SysUser;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import tk.mybatis.mapper.common.base.select.SelectOneMapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -118,17 +116,12 @@ public class BaseService<T,M> {
 
     /**
      * 删除 支持批量
+     * 目前仅仅支持单主键批量删除
      * @param args
      * @return
      */
     public int deletes(M... args){
-        List<T> tt  = new ArrayList<>();
-        mapper.insertList(tt);
-        return mapper.delectByPrimaryKeys("1");
-        /*int count = 0;
-        for(M m : args)
-            count += mapper.deleteByPrimaryKey(m);
-        return count;*/
+        return mapper.deleteByPrimaryKeyList(args);
     }
 
     public int deleteObjs(T... args){
