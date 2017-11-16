@@ -8,6 +8,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.common.base.select.SelectOneMapper;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -121,18 +122,20 @@ public class BaseService<T,M> {
      * @return
      */
     public int deletes(M... args){
-        //return system.delete(args);
-        int count = 0;
+        List<T> tt  = new ArrayList<>();
+        mapper.insertList(tt);
+        return mapper.delectByPrimaryKeys("1");
+        /*int count = 0;
         for(M m : args)
             count += mapper.deleteByPrimaryKey(m);
-        return count;
+        return count;*/
     }
 
     public int deleteObjs(T... args){
         //return system.delete(args);
         int count = 0;
-        for(T t : args)
-            count += mapper.delete(t);
+        /*for(T t : args)
+            count += mapper.delete(t);*/
         return count;
     }
 

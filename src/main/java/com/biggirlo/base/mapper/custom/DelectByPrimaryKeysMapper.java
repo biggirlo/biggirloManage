@@ -1,6 +1,7 @@
 package com.biggirlo.base.mapper.custom;
 
 
+import com.biggirlo.base.mapper.provider.CostomProvider;
 import org.apache.ibatis.annotations.DeleteProvider;
 import tk.mybatis.mapper.provider.base.BaseDeleteProvider;
 
@@ -18,19 +19,15 @@ import tk.mybatis.mapper.provider.base.BaseDeleteProvider;
  */
 public interface DelectByPrimaryKeysMapper<T> {
 
-   /* @DeleteProvider(
+   @DeleteProvider(
             type = CostomProvider.class,
             method = "dynamicSQL"
     )
-    *//**
+    /**
      * 根据主键组批量删除
      * @param record
      * @return
-     *//*
-    int delectByPrimaryKeys(Object record);*/
-    @DeleteProvider(
-            type = BaseDeleteProvider.class,
-            method = "dynamicSQL"
-    )
-    int delete(T var1);
+     */
+    int delectByPrimaryKeys(Object record);
+
 }

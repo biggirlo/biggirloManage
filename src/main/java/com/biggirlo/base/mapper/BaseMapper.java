@@ -1,7 +1,7 @@
 package com.biggirlo.base.mapper;
 
-import org.slf4j.Marker;
-import tk.mybatis.mapper.common.base.BaseDeleteMapper;
+import com.biggirlo.base.mapper.custom.DelectByPrimaryKeysMapper;
+import tk.mybatis.mapper.common.Marker;
 import tk.mybatis.mapper.common.base.BaseInsertMapper;
 import tk.mybatis.mapper.common.base.BaseSelectMapper;
 import tk.mybatis.mapper.common.base.BaseUpdateMapper;
@@ -76,6 +76,8 @@ import tk.mybatis.mapper.common.special.InsertListMapper;
 public interface BaseMapper<T> extends BaseSelectMapper<T>,
         BaseInsertMapper<T>,
         BaseUpdateMapper<T>,
-        BaseDeleteMapper<T>,InsertListMapper<T> {
+        DelectByPrimaryKeysMapper<T>,
+        InsertListMapper<T>, Marker
+        {
 
 }
