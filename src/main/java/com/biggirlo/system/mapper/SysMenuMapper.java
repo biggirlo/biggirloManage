@@ -22,7 +22,7 @@ package com.biggirlo.system.mapper;
 import com.biggirlo.base.mapper.BaseMapper;
 import com.biggirlo.system.jopo.search.MenuRoleSearch;
 import com.biggirlo.system.model.SysMenu;
-import org.apache.ibatis.annotations.Mapper;
+
 
 import java.util.List;
 
@@ -31,7 +31,6 @@ import java.util.List;
  * 数据访问接口
  * </pre>
  */
-@Mapper
 public interface SysMenuMapper extends BaseMapper<SysMenu> {
 
     /**

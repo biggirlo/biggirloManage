@@ -9,11 +9,13 @@ package com.biggirlo.base.config.shiro.filter;
 
 import com.biggirlo.base.config.cors.CorsConfig;
 import com.biggirlo.base.util.YamlLoadUtil;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
-import org.apache.shiro.web.filter.authc.AuthenticationFilter;
+import com.biggirlo.system.model.SysMenu;
+import com.biggirlo.system.util.UserLoginUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -21,6 +23,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -45,6 +48,12 @@ public class JWTOrAuthenticationFilter extends FormAuthenticationFilter {
             httpResponse.setStatus(HttpStatus.OK.value());
             return false;
         }
+        Subject subject = SecurityUtils.getSubject(); // 获取Subject单例对象
+        List<SysMenu> menus = (List<SysMenu>) subject.getSession().getAttribute(UserLoginUtils.LOGIN_USER_MENUS_NAME);
+        System.out.print(httpRequest.getRequestURL());
+
         return super.preHandle(request, response);
+
     }
+
 }

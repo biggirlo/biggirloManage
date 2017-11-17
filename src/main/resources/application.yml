@@ -60,7 +60,7 @@ mybatis:
     identity: MYSQL
     logImpl: STDOUT_LOGGING
 server:
-  port: 8080
+  port: 8081
   tomcat:
     uri-encoding: UTF-8
 
@@ -69,7 +69,7 @@ shiro:
   accessControlAllowMethods: POST, GET, PUT, DELETE,OPTIONS
   accessControlAllowHeaders: Authentication,Origin, X-Requested-With, Content-Type,token,Accept,Authorization
   accessControlMaxAge: 3600
-  accessControlAllowOrigin: http://localhost:10100
+  accessControlAllowOrigin: http://127.0.0.1:10100
 
 logging:
   file: biggirlo
