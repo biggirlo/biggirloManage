@@ -26,6 +26,7 @@ import com.biggirlo.base.util.DecriptUtil;
 import com.biggirlo.base.util.Restult;
 import com.biggirlo.system.jopo.LoginUser;
 import com.biggirlo.system.mapper.SysUserMapper;
+import com.biggirlo.system.mapper.SysUserRoleMapper;
 import com.biggirlo.system.model.SysUserRole;
 import com.biggirlo.system.util.UserLoginUtils;
 import org.apache.shiro.SecurityUtils;
@@ -36,6 +37,7 @@ import org.springframework.stereotype.Service;
 
 import com.biggirlo.system.model.SysUser;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -49,6 +51,9 @@ public class SysUserService extends BaseService<SysUser, Long> {
 
     @Autowired
     private SysUserMapper sysUserMapper;
+
+    @Autowired
+    private SysUserRoleMapper sysUserRoleMapper;
 
     @Autowired
     private SysUserRoleService sysUserRoleService;
@@ -117,5 +122,25 @@ public class SysUserService extends BaseService<SysUser, Long> {
         subject.getSession().setAttribute(UserLoginUtils.LOGIN_USER_SESSION_NAME,loginUser);
         subject.getSession().setAttribute(UserLoginUtils.LOGIN_USER_ROLES_NAME,userRoles);
         return new Restult(Code.SUCCESS,subject.getSession().getId());
+    }
+
+    /**
+     * 批量删除
+     * @param ids
+     * @return
+     */
+    public Object deleteItems(Long[] ids) {
+        int count = this.deletes(ids);
+
+        //删除该用户拥有的角色关系
+        List<SysUserRole> roles = new ArrayList<>();
+        for(long id : ids){
+            SysUserRole role = new SysUserRole();
+            role.setUserId(id);
+            roles.add(role);
+        }
+        count += sysUserRoleMapper.deleteList(roles);
+
+        return count;
     }
 }
