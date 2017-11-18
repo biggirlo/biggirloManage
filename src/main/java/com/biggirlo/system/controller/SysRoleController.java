@@ -88,7 +88,7 @@ public class SysRoleController {
     public Object delete(@RequestBody Map<String ,Long[]> map){
         try{
             Long[] ids = map.get("ids");
-            return new Restult(Code.SUCCESS,sysRoleService.deletes(ids));
+            return new Restult(Code.SUCCESS,sysRoleService.deleteByIds(ids));
         }catch (Exception e){
             e.printStackTrace();
             return new Restult(Code.SYSTEM_ERROR);

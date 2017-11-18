@@ -23,12 +23,17 @@ package com.biggirlo.system.service;
 import com.biggirlo.base.service.BaseService;
 import com.biggirlo.base.util.Code;
 import com.biggirlo.base.util.Restult;
+import com.biggirlo.system.mapper.SysUserRoleMapper;
+import com.biggirlo.system.model.SysUserRole;
 import com.biggirlo.system.util.UserLoginUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.biggirlo.system.model.SysRole;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <pre>
@@ -37,6 +42,9 @@ import java.util.Date;
  */
 @Service("sysRoleService")
 public class SysRoleService extends BaseService<SysRole, Long> {
+
+    @Autowired
+    private SysUserRoleMapper sysUserRoleMapper;
 
     /**
      * 保存数据
@@ -61,5 +69,23 @@ public class SysRoleService extends BaseService<SysRole, Long> {
             rs = new Restult(Code.REPEAT_KEYWORK.value(),"重复的角色编码");
 
         return rs;
+    }
+
+    /**
+     * 删除角色
+     * @param ids
+     * @return
+     */
+    public Object deleteByIds(Long[] ids) {
+        int count = this.deletes(ids);
+        List<SysUserRole> roles = new ArrayList<>();
+        //级联删除，删除用户-角色关系
+        for(Long id :ids){
+            SysUserRole sysUserRole = new SysUserRole();
+            sysUserRole.setRoleId(id);
+            roles.add(sysUserRole);
+        }
+        count += sysUserRoleMapper.deleteList(roles);
+        return count;
     }
 }
