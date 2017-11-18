@@ -21,7 +21,6 @@ package com.biggirlo.system.mapper;
 
 import com.biggirlo.base.mapper.BaseMapper;
 import com.biggirlo.system.model.SysUserRole;
-import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -31,7 +30,6 @@ import java.util.List;
  * 数据访问接口
  * </pre>
  */
-@Mapper
 public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {
 
     /**

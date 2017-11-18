@@ -52,6 +52,7 @@ public class CorsFilter implements Filter {
         httpResponse.setHeader("Access-Control-Allow-Methods", CorsConfig.getInstance().getAccessControlAllowMethods());
         httpResponse.setHeader("Access-Control-Max-Age", CorsConfig.getInstance().getAccessControlMaxAge());
         httpResponse.setHeader("Access-Control-Allow-Headers", CorsConfig.getInstance().getAccessControlAllowHeaders());
+        logg.info("调用跨域处理过滤器");
         chain.doFilter(httpRequest, httpResponse);
     }
     public void init(FilterConfig filterConfig) {}

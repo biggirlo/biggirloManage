@@ -21,7 +21,7 @@ public class UserLoginUtils {
     public static final String LOGIN_USER_SESSION_NAME = "currentUser";
     //用户所拥有的角色的名称
     public static final String LOGIN_USER_ROLES_NAME = "userRoles";
-    //
+    //用户菜单
     public static final String LOGIN_USER_MENUS_NAME ="userMenus";
 
 

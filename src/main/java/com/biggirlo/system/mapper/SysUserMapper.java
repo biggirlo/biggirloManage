@@ -21,7 +21,6 @@ package com.biggirlo.system.mapper;
 
 import com.biggirlo.base.mapper.BaseMapper;
 import com.biggirlo.system.model.SysUser;
-import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -30,7 +29,6 @@ import java.util.List;
  * 系统用户表数据访问接口
  * </pre>
  */
-@Mapper
 public interface SysUserMapper extends BaseMapper<SysUser> {
     /**
      * 根据datatable获取数据

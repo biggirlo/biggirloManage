@@ -21,13 +21,11 @@ package com.biggirlo.system.mapper;
 
 import com.biggirlo.base.mapper.BaseMapper;
 import com.biggirlo.system.model.SysRole;
-import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <pre>
  * 数据访问接口
  * </pre>
  */
-@Mapper
 public interface SysRoleMapper extends BaseMapper<SysRole> {
 }

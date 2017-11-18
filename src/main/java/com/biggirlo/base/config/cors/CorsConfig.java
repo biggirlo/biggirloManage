@@ -8,6 +8,7 @@
 package com.biggirlo.base.config.cors;
 
 import com.biggirlo.base.util.YamlLoadUtil;
+import org.apache.log4j.Logger;
 import org.springframework.core.env.PropertySource;
 
 /**
@@ -17,7 +18,15 @@ import org.springframework.core.env.PropertySource;
  */
 
 public class CorsConfig {
+    Logger logg= Logger.getLogger(CorsConfig.class);
+
     private CorsConfig() {
+        logg.info("读取application.ymlcorsConfig配置");
+        logg.info("token-header-name:" + this.tokenheaderName);
+        logg.info("access-control-allow-methods:" + this.accessControlAllowMethods);
+        logg.info("access-control-allow-headers:" + this.accessControlAllowHeaders);
+        logg.info("access-control-maxAge:" + this.accessControlMaxAge);
+        logg.info("access-control-allow-origin:" + this.accessControlAllowOrigin);
         PropertySource propertySource = YamlLoadUtil.getYamlLoad("classpath:application.yml");
         this.tokenheaderName = propertySource.getProperty("shiro.tokenheaderName").toString();
         this.accessControlAllowMethods = propertySource.getProperty("shiro.accessControlAllowMethods").toString();

@@ -53,10 +53,10 @@ public class SysUserService extends BaseService<SysUser, Long> {
     private SysUserMapper sysUserMapper;
 
     @Autowired
-    private SysUserRoleService sysUserRoleService;
+    private SysUserRoleMapper sysUserRoleMapper;
 
     @Autowired
-    private SysUserRoleMapper sysUserRoleMapper;
+    private SysUserRoleService sysUserRoleService;
 
     /**
      * 保存编辑的数据
@@ -125,18 +125,19 @@ public class SysUserService extends BaseService<SysUser, Long> {
     }
 
     /**
-     * 根据id删除
+     * 批量删除
      * @param ids
      * @return
      */
-    public int deleteByIds(Long[] ids) {
+    public Object deleteItems(Long[] ids) {
         int count = this.deletes(ids);
+
+        //删除该用户拥有的角色关系
         List<SysUserRole> roles = new ArrayList<>();
-        //级联删除，删除用户-角色关系
-        for(Long id :ids){
-            SysUserRole sysUserRole = new SysUserRole();
-            sysUserRole.setUserId(id);
-            roles.add(sysUserRole);
+        for(long id : ids){
+            SysUserRole role = new SysUserRole();
+            role.setUserId(id);
+            roles.add(role);
         }
         count += sysUserRoleMapper.deleteList(roles);
 

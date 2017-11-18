@@ -21,13 +21,12 @@ package com.biggirlo.system.mapper;
 
 import com.biggirlo.base.mapper.BaseMapper;
 import com.biggirlo.system.model.SysHandle;
-import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <pre>
  * 数据访问接口
  * </pre>
  */
-@Mapper
+
 public interface SysHandleMapper extends BaseMapper<SysHandle> {
 }
