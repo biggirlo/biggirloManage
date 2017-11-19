@@ -1,6 +1,9 @@
 package com.biggirlo.base.model;
 
+import org.springframework.core.annotation.Order;
+
 import javax.persistence.Id;
+import javax.persistence.OrderBy;
 import java.util.Date;
 
 /**
@@ -29,6 +32,7 @@ public class BaseModel {
     /**
      * 创建时间
      */
+    @OrderBy
     private Date createTime;
 
     /**

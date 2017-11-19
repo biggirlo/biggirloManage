@@ -78,8 +78,7 @@ import tk.mybatis.mapper.common.special.InsertListMapper;
 public interface BaseMapper<T> extends BaseSelectMapper<T>,
         BaseInsertMapper<T>,
         BaseUpdateMapper<T>,
-        BaseDeleteMapper<T>,
-        InsertListMapper<T>, Marker
+        BaseDeleteMapper<T>,Marker
         {
 
 }
