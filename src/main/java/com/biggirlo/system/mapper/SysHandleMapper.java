@@ -20,7 +20,10 @@
 package com.biggirlo.system.mapper;
 
 import com.biggirlo.base.mapper.BaseMapper;
+import com.biggirlo.system.jopo.jstree.TreeNode;
 import com.biggirlo.system.model.SysHandle;
+
+import java.util.List;
 
 /**
  * <pre>
@@ -29,4 +32,10 @@ import com.biggirlo.system.model.SysHandle;
  */
 
 public interface SysHandleMapper extends BaseMapper<SysHandle> {
+
+    /**
+     * 得到TreeNode.class的操作列表
+     * @return
+     */
+    List<TreeNode> searchHandleToTreeNode();
 }

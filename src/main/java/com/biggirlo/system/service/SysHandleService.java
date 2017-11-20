@@ -19,9 +19,11 @@
 
 package com.biggirlo.system.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.biggirlo.base.service.BaseService;
+import com.biggirlo.system.jopo.jstree.TreeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,4 +38,29 @@ import com.biggirlo.system.mapper.SysHandleMapper;
 @Service("sysHandleService")
 public class SysHandleService extends BaseService<SysHandle, Long> {
 
+    @Autowired
+    private SysMenuService sysMenuService;
+
+    @Autowired
+    private SysHandleMapper sysHandleMapper;
+
+    /**
+     * 得到包含菜单树结构和操作的结构树
+     * @return
+     */
+    public List<TreeNode> getJsTreeList() {
+        //得到菜单节点
+        List<TreeNode> nodes = sysMenuService.getJsTreeList();
+        //得到操作节点
+        nodes.addAll(this.getHandleToTreeNode());
+        return nodes;
+    }
+
+    /**
+     * 得到TreeNode.class的操作列表
+     * @return
+     */
+    public List<TreeNode> getHandleToTreeNode() {
+        return sysHandleMapper.searchHandleToTreeNode();
+    }
 }

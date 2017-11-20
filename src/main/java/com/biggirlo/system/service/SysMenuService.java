@@ -92,7 +92,7 @@ public class SysMenuService extends BaseService<SysMenu, Long> {
     /**
      * 菜单树形结构（包含所有菜单结构）
      */
-    public Object getWholeTreeList() {
+    public List<TreeNode> getJsTreeList() {
         List<SysMenu> treeMenus = new ArrayList<>();
         //设置查询条件
         List<SysMenu> allMenus = selectAll();

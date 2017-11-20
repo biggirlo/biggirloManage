@@ -22,13 +22,11 @@ package com.biggirlo.system.controller;
 import com.biggirlo.base.util.Code;
 import com.biggirlo.base.util.DataTablesParam;
 import com.biggirlo.base.util.Restult;
-import com.biggirlo.system.model.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.biggirlo.system.model.SysMenu;
 import com.biggirlo.system.service.SysMenuService;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -49,7 +47,7 @@ public class SysMenuController {
      * @param id
      * @return
      */
-    @RequestMapping("/{id}")
+    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     public Restult get(@PathVariable("id") Long id) {
         Restult rs = new Restult();
         try{
@@ -94,14 +92,14 @@ public class SysMenuController {
     }
 
     /**
-     * 获取整个树结构
+     * 获取整个jstree树结构
      * @return
      */
     @RequestMapping(value = "/wholeTree",method = RequestMethod.GET)
-    public Restult getAllWholeTree(){
+    public Restult getAllJsTree(){
         Restult rs = new Restult();
         try {
-            rs.setCodeData(Code.SUCCESS,sysMenuService.getWholeTreeList());
+            rs.setCodeData(Code.SUCCESS,sysMenuService.getJsTreeList());
         }catch (Exception e){
             e.printStackTrace();
             rs.setCode(Code.SYSTEM_ERROR);
