@@ -20,7 +20,7 @@
 package com.biggirlo.system.mapper;
 
 import com.biggirlo.base.mapper.BaseMapper;
-import com.biggirlo.system.jopo.TreeNode;
+import com.biggirlo.system.jopo.jstree.TreeNode;
 import com.biggirlo.system.jopo.parame.RoleMenuPalame;
 
 import com.biggirlo.system.model.SysRoleMenu;

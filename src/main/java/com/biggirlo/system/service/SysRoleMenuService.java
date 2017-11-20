@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.biggirlo.base.service.BaseService;
-import com.biggirlo.system.jopo.TreeNode;
+import com.biggirlo.system.jopo.jstree.TreeNode;
 import com.biggirlo.system.jopo.parame.RoleMenuPalame;
 import com.biggirlo.system.mapper.SysRoleMenuMapper;
 import com.biggirlo.system.util.UserLoginUtils;

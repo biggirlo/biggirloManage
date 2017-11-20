@@ -21,7 +21,7 @@
         from <include refid="BaseTable" />
     </select>
 
-    <select id="searchRoleUsers" resultType="com.biggirlo.system.jopo.TreeNode">
+    <select id="searchRoleUsers" resultType="com.biggirlo.system.jopo.jstree.TreeNode">
         SELECT
         CASE
 	    when ISNULL(bsrm.role_id) or parent_id = 0 then FALSE
@@ -30,7 +30,8 @@
         bsm.id ,bsm.menu_name as text,bsm.parent_id as parent,
         CASE
         WHEN bsm.type = 2 THEN 'fa fa-briefcase icon-state-success'
-        ELSE NULL END as icon
+        ELSE NULL END as icon,
+        bsm.type as data
         from BS_SYS_MENU bsm
         LEFT JOIN BS_SYS_ROLE_MENU bsrm
         on bsm.id = bsrm.menu_id and bsrm.role_id = #{roId}

@@ -62,12 +62,12 @@ public class SysUserRoleService extends  BaseService<SysUserRole,Long>{
         Long roleId = palame.getRoleId();
         if(roleId == null)
             throw new NullPointerException("角色id不能为空");
-        sysUserRoleSearch.setRoleId(palame.getRoleId());
-        List<SysUserRole> list = select(sysUserRoleSearch);
+        sysUserRoleSearch.setRoleId(roleId);
+        //清空数据
+        int deleteCount = delete(sysUserRoleSearch);
         //插入数据
         List<SysUserRole> insertData = new ArrayList<>();
         for(Long userId : palame.getUserIds()){
-            if(!this.isHasObj(userId,list)){
                 SysUserRole sysUserRole = new SysUserRole();
                 sysUserRole.setRoleId(roleId);
                 sysUserRole.setUserId(userId);
@@ -75,10 +75,8 @@ public class SysUserRoleService extends  BaseService<SysUserRole,Long>{
                 sysUserRole.setCreateTime(new Date());
                 sysUserRole.setCreateBy(UserLoginUtils.getCurrentUserId());
                 insertData.add(sysUserRole);
-            }
         }
         int inserCount =  insertList(insertData);
-        int deleteCount = deleteObjs((SysUserRole[]) list.toArray(new SysUserRole[list.size()]));
         return inserCount + deleteCount;
     }
 
@@ -88,12 +86,12 @@ public class SysUserRoleService extends  BaseService<SysUserRole,Long>{
      * @param datas
      * @return
      */
-    private boolean isHasObj(Long userId ,List<SysUserRole> datas){
+    /*private boolean isHasObj(Long userId ,List<SysUserRole> datas){
         for(SysUserRole sysUserRole:datas)
             if(sysUserRole.getUserId() == userId){
                 datas.remove(sysUserRole);
                 return true;
             }
         return false;
-    }
+    }*/
 }

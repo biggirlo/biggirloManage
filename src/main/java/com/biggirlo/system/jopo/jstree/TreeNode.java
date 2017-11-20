@@ -5,9 +5,7 @@
  * **********************************************************
  * **********************************************************
  */
-package com.biggirlo.system.jopo;
-
-import javax.crypto.interfaces.PBEKey;
+package com.biggirlo.system.jopo.jstree;
 
 /**
  * 树节点对象
@@ -34,6 +32,10 @@ public class TreeNode {
 
     //是否被选中
     private boolean isSelect;
+
+    //拓展字段，任何数据，设置这个属性没有任何UI上的效果，任何时候都可以读写这个数据.
+    //现在拓展为分配角色的菜单类型 1：菜单类型 2：接口类型 3：操作类型
+    private Object data;
 
     public String getId() {
         return id;
@@ -81,6 +83,14 @@ public class TreeNode {
 
     public void setSelect(boolean select) {
         isSelect = select;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
     }
 
     /**

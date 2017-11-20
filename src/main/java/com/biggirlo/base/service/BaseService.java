@@ -124,12 +124,26 @@ public class BaseService<T,M> {
         return mapper.deleteByPrimaryKeyList(args);
     }
 
+    /**
+     * 根据实体批量删除
+     * @param args
+     * @return
+     */
     public int deleteObjs(T... args){
         //return system.delete(args);
         int count = 0;
-        /*for(T t : args)
-            count += mapper.delete(t);*/
+        for(T t : args)
+            count += mapper.delete(t);
         return count;
+    }
+
+    /**
+     * 根据t删除
+     * @param t
+     * @return
+     */
+    public int delete(T t){
+        return mapper.delete(t);
     }
 
     /**

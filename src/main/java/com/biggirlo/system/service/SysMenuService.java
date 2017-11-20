@@ -36,7 +36,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.biggirlo.system.model.SysMenu;
-import com.biggirlo.system.jopo.TreeNode;
+import com.biggirlo.system.jopo.jstree.TreeNode;
 
 /**
  * <pre>
