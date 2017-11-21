@@ -66,8 +66,9 @@ server:
 
 shiro:
   tokenheaderName: authorization
+  clientHostPortName: XForwardedFor
   accessControlAllowMethods: POST, GET, PUT, DELETE,OPTIONS
-  accessControlAllowHeaders: Authentication,Origin, X-Requested-With, Content-Type,token,Accept,Authorization
+  accessControlAllowHeaders: Authentication,Origin, X-Requested-With, Content-Type,token,Accept,Authorization,XForwardedFor
   accessControlMaxAge: 3600
   accessControlAllowOrigin: http://127.0.0.1:10100
 

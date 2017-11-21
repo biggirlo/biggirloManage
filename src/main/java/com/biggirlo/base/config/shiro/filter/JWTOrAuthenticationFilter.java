@@ -31,10 +31,9 @@ import java.util.List;
  * create on 2017/11/12 4:41 
  */
 public class JWTOrAuthenticationFilter extends FormAuthenticationFilter {
-    private String origin;
 
-    public JWTOrAuthenticationFilter( String origin){
-        this.origin = origin;
+    public JWTOrAuthenticationFilter( ){
+
     }
 
     @Override
@@ -42,7 +41,7 @@ public class JWTOrAuthenticationFilter extends FormAuthenticationFilter {
         HttpServletRequest httpRequest = WebUtils.toHttp(request);
         HttpServletResponse httpResponse = WebUtils.toHttp(response);
         if (httpRequest.getMethod().equals(RequestMethod.OPTIONS.name())) {
-            httpResponse.setHeader("Access-control-Allow-Origin", origin);
+            httpResponse.setHeader("Access-control-Allow-Origin", httpRequest.getHeader( CorsConfig.getInstance().getClientHostPortName()));
             httpResponse.setHeader("Access-Control-Allow-Methods", CorsConfig.getInstance().getAccessControlAllowMethods());
             httpResponse.setHeader("Access-Control-Allow-Headers", CorsConfig.getInstance().getAccessControlAllowHeaders());
             httpResponse.setStatus(HttpStatus.OK.value());

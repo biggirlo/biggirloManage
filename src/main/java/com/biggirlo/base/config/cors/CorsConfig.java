@@ -29,6 +29,7 @@ public class CorsConfig {
         logg.info("access-control-allow-origin:" + this.accessControlAllowOrigin);
         PropertySource propertySource = YamlLoadUtil.getYamlLoad("classpath:application.yml");
         this.tokenheaderName = propertySource.getProperty("shiro.tokenheaderName").toString();
+        this.clientHostPortName = propertySource.getProperty("shiro.clientHostPortName").toString();
         this.accessControlAllowMethods = propertySource.getProperty("shiro.accessControlAllowMethods").toString();
         this.accessControlAllowHeaders = propertySource.getProperty("shiro.accessControlAllowHeaders").toString();
         this.accessControlMaxAge = propertySource.getProperty("shiro.accessControlMaxAge").toString();
@@ -42,6 +43,9 @@ public class CorsConfig {
 
     //存放token的表头名称
     private String tokenheaderName;
+
+    //存放客户端地址的表头
+    private String clientHostPortName;
 
     private String accessControlAllowMethods;
 
@@ -89,5 +93,13 @@ public class CorsConfig {
 
     public void setAccessControlAllowOrigin(String accessControlAllowOrigin) {
         this.accessControlAllowOrigin = accessControlAllowOrigin;
+    }
+
+    public String getClientHostPortName() {
+        return clientHostPortName;
+    }
+
+    public void setClientHostPortName(String clientHostPortName) {
+        this.clientHostPortName = clientHostPortName;
     }
 }
