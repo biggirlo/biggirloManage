@@ -38,4 +38,11 @@ public interface SysHandleMapper extends BaseMapper<SysHandle> {
      * @return
      */
     List<TreeNode> searchHandleToTreeNode();
+
+    /**
+     * 获取所有的操作节点，并附上角色关联
+     * @param roId
+     * @return
+     */
+    List<TreeNode> searchHandleToTreeNodeByRole(Long roId);
 }

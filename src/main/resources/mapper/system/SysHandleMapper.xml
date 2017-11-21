@@ -37,4 +37,16 @@
 			'fa fa-wrench' as icon
         FROM `BS_SYS_HANDLE`;
     </select>
+
+    <select id="searchHandleToTreeNodeByRole" resultType="com.biggirlo.system.jopo.jstree.TreeNode" >
+        SELECT
+        bsh.id,
+			bsh.name as text,menu_id as parent,
+			'fa fa-wrench' as icon,
+			 CASE
+	        when ISNULL(bsrh.role_id) then FALSE
+	        ELSE TRUE
+       end as isSelect
+        FROM `BS_SYS_HANDLE` bsh LEFT JOIN BS_SYS_ROLE_HANDLE bsrh on bsh.id = bsrh.handle_id and bsrh.role_id = #{roId}
+    </select>
 </mapper>

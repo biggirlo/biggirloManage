@@ -44,6 +44,7 @@
                 bsur.role_id = #{roleId}
             </if>
         </where>
+        ORDER BY bsu.create_time
     </select>
 
 </mapper>

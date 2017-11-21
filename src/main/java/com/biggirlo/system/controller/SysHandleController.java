@@ -96,7 +96,7 @@ public class SysHandleController {
     public Object delete(@RequestBody Map<String ,Long[]> map){
         try{
             Long[] ids = map.get("ids");
-            return new Restult(Code.SUCCESS,sysHandleService.deletes(ids));
+            return new Restult(Code.SUCCESS,sysHandleService.deletesByIds(ids));
         }catch (Exception e){
             e.printStackTrace();
             return new Restult(Code.SYSTEM_ERROR);

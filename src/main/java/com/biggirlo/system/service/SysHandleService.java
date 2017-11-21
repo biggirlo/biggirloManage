@@ -19,6 +19,7 @@
 
 package com.biggirlo.system.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +30,9 @@ import com.biggirlo.base.util.Restult;
 import com.biggirlo.system.jopo.jstree.Data;
 import com.biggirlo.system.jopo.jstree.TreeNode;
 import com.biggirlo.system.jopo.jstree.TreeNodeType;
+import com.biggirlo.system.mapper.SysRoleHandleMapper;
+import com.biggirlo.system.model.SysRoleHandle;
+import com.biggirlo.system.model.SysUser;
 import com.biggirlo.system.util.UserLoginUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,6 +54,8 @@ public class SysHandleService extends BaseService<SysHandle, Long> {
     @Autowired
     private SysHandleMapper sysHandleMapper;
 
+    @Autowired
+    private SysRoleHandleMapper sysRoleHandleMapper;
     /**
      * 得到包含菜单树结构和操作的结构树
      * @return
@@ -63,8 +69,6 @@ public class SysHandleService extends BaseService<SysHandle, Long> {
             Data data = new Data();
             //存入data缓存
             data.setId(node.getId());
-            //修改id,避免冲突
-            node.setId(  "-" + node.getId());
             //设置为操作类型
             data.setType(TreeNodeType.HANDLE);
             node.setData(data);
@@ -98,5 +102,25 @@ public class SysHandleService extends BaseService<SysHandle, Long> {
             rs = new Restult(Code.REPEAT_KEYWORK.value(),"重复的操作编码");
 
         return rs;
+    }
+
+    /**
+     * 批量删除
+     * @param ids
+     * @return
+     */
+    public int deletesByIds(Long[] ids) {
+        int count = 0;
+        count = deletes(ids);
+
+        //删除该用户拥有的角色关系
+        List<SysRoleHandle> roleHandles = new ArrayList<>();
+        for(long id : ids){
+            SysRoleHandle roleHandle = new SysRoleHandle();
+            roleHandle.setRoleId(id);
+            roleHandles.add(roleHandle);
+        }
+        count += sysRoleHandleMapper.deleteList(roleHandles);
+        return count;
     }
 }

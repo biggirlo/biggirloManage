@@ -49,6 +49,7 @@
                 AND type = #{menuType}
             </if>
         </where>
+        ORDER BY sort
     </select>
 
 </mapper>

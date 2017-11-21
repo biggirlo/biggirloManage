@@ -34,6 +34,7 @@
         from BS_SYS_MENU bsm
         LEFT JOIN BS_SYS_ROLE_MENU bsrm
         on bsm.id = bsrm.menu_id and bsrm.role_id = #{roId}
+        ORDER BY bsm.sort
     </select>
 
     <delete id="deleteByCondtion" parameterType="com.biggirlo.system.jopo.parame.RoleMenuPalame">

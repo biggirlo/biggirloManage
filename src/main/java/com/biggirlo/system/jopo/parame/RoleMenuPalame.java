@@ -23,6 +23,8 @@ public class RoleMenuPalame {
 
     private List<Long> menuIds;
 
+    private List<Long> handleIds;
+
     private Date createTime;
 
     private Long createBy;
@@ -59,4 +61,11 @@ public class RoleMenuPalame {
         this.createBy = createBy;
     }
 
+    public List<Long> getHandleIds() {
+        return handleIds;
+    }
+
+    public void setHandleIds(List<Long> handleIds) {
+        this.handleIds = handleIds;
+    }
 }
