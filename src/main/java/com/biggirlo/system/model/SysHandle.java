@@ -74,7 +74,7 @@ public class SysHandle extends BaseModel{
      *
      * 数据库字段信息:is_available TINYINT(3)
      */
-    private int isAvailable;
+    private Integer isAvailable;
 
     public SysHandle() {
     }
@@ -118,11 +118,11 @@ public class SysHandle extends BaseModel{
         this.type = type;
     }
 
-    public int getIsAvailable() {
+    public Integer getIsAvailable() {
         return this.isAvailable;
     }
 
-    public void setIsAvailable(int isAvailable) {
+    public void setIsAvailable(Integer isAvailable) {
         this.isAvailable = isAvailable;
     }
 

@@ -22,11 +22,13 @@ package com.biggirlo.system.model;
 import com.biggirlo.base.model.BaseModel;
 import com.fasterxml.jackson.databind.ser.Serializers;
 
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.lang.reflect.Member;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -85,8 +87,10 @@ public class SysMenu extends BaseModel{
      *
      * 排序
      */
+    @OrderBy
     private Long sort;
 
+    private Date createTime;
     /**
      * 子菜单
      */

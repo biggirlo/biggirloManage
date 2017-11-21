@@ -47,9 +47,9 @@ public class JWTOrAuthenticationFilter extends FormAuthenticationFilter {
             httpResponse.setStatus(HttpStatus.OK.value());
             return false;
         }
-        Subject subject = SecurityUtils.getSubject(); // 获取Subject单例对象
+       /* Subject subject = SecurityUtils.getSubject(); // 获取Subject单例对象
         List<SysMenu> menus = (List<SysMenu>) subject.getSession().getAttribute(UserLoginUtils.LOGIN_USER_MENUS_NAME);
-        System.out.print(httpRequest.getRequestURL());
+        System.out.print(httpRequest.getRequestURL());*/
 
         return super.preHandle(request, response);
 

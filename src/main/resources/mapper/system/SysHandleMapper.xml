@@ -32,9 +32,9 @@
     <!--查询所有的操作，以treeNode.class对象返回-->
     <select id="searchHandleToTreeNode" resultType="com.biggirlo.system.jopo.jstree.TreeNode" >
         SELECT
+            id,
 			name as text,menu_id as parent,
-			'fa fa-wrench' as icon,
-            3 as data
+			'fa fa-wrench' as icon
         FROM `BS_SYS_HANDLE`;
     </select>
 </mapper>

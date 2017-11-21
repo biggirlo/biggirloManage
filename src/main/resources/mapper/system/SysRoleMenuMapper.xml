@@ -30,8 +30,7 @@
         bsm.id ,bsm.menu_name as text,bsm.parent_id as parent,
         CASE
         WHEN bsm.type = 2 THEN 'fa fa-briefcase icon-state-success'
-        ELSE NULL END as icon,
-        bsm.type as data
+        ELSE NULL END as icon
         from BS_SYS_MENU bsm
         LEFT JOIN BS_SYS_ROLE_MENU bsrm
         on bsm.id = bsrm.menu_id and bsrm.role_id = #{roId}

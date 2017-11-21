@@ -19,15 +19,15 @@
 
 package com.biggirlo.system.controller;
 import com.biggirlo.base.util.Code;
+import com.biggirlo.base.util.DataTablesParam;
 import com.biggirlo.base.util.Restult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.biggirlo.system.model.SysHandle;
 import com.biggirlo.system.service.SysHandleService;
+
+import java.util.Map;
 
 /**
  * <pre>
@@ -51,8 +51,8 @@ public class SysHandleController {
     public Restult get(@PathVariable("id") Long id) {
         Restult rs = new Restult();
         try{
-            SysHandle sysMenu  = sysHandleService.selectById(id);
-            rs.setCodeData(Code.SUCCESS,sysMenu);
+            SysHandle sysHandle  = sysHandleService.selectById(id);
+            rs.setCodeData(Code.SUCCESS,sysHandle);
         }catch (Exception e){
             e.printStackTrace();
             rs.setCode(Code.SYSTEM_ERROR);
@@ -74,5 +74,47 @@ public class SysHandleController {
             rs.setCode(Code.SYSTEM_ERROR);
         }
         return rs ;
+    }
+
+    /**
+     * 获取操作列表
+     * @param param
+     * @param handle
+     * @return
+     */
+    @RequestMapping(value = "/dataTable/list",method = RequestMethod.PUT)
+    public Object getMenus(DataTablesParam param, SysHandle handle){
+        return sysHandleService.selectByDatetable(param,handle);
+    }
+
+    /**
+     * 删除
+     * @param map
+     * @return
+     */
+    @RequestMapping(value = "/list",method = RequestMethod.DELETE)
+    public Object delete(@RequestBody Map<String ,Long[]> map){
+        try{
+            Long[] ids = map.get("ids");
+            return new Restult(Code.SUCCESS,sysHandleService.deletes(ids));
+        }catch (Exception e){
+            e.printStackTrace();
+            return new Restult(Code.SYSTEM_ERROR);
+        }
+    }
+
+    /**
+     * 新增
+     * @param handle
+     * @return
+     */
+    @RequestMapping(value = "/info",method = RequestMethod.POST)
+    public Object create(@RequestBody SysHandle handle){
+        try{
+            return sysHandleService.save(handle);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new Restult(Code.SYSTEM_ERROR);
+        }
     }
 }
