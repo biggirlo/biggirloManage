@@ -7,6 +7,7 @@
  */
 package com.biggirlo.system.controller;
 
+import com.biggirlo.base.config.shiro.ShiroApplicationConfig;
 import com.biggirlo.base.util.Code;
 import com.biggirlo.base.util.Restult;
 import com.biggirlo.system.mapper.SysUserMapper;
@@ -45,5 +46,15 @@ public class SysLoginController {
     @RequestMapping(value = "/system/login",method = RequestMethod.POST)
     public Restult login(@RequestBody SysUser user){
         return sysUserService.login(user);
+
+    }
+
+    /**
+     * 无权限访问
+     * @return
+     */
+    @RequestMapping(value = "/forbidden")
+    public Restult forbidden(){
+        return new Restult(Code.FORBIDDEN);
     }
 }

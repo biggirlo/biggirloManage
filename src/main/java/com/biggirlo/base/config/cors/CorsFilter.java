@@ -29,17 +29,6 @@ public class CorsFilter implements Filter {
     Logger logg= Logger.getLogger(CorsFilter.class);
 
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-       /* HttpServletResponse response = (HttpServletResponse) res;
-        HttpServletRequest request = (HttpServletRequest) req;
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:10100");
-        response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE,OPTIONS");
-        response.setHeader("Access-Control-Request-Methods", "POST, GET, PUT, DELETE,OPTIONS");
-        response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Credentials", "true");
-        response.setHeader("Access-Control-Allow-Headers", "Authentication,Origin, X-Requested-With, Content-Type,token,Accept,Authorization");
-        response.setHeader("Access-Control-Request-Headers", "Authentication,Origin, X-Requested-With, Content-Type,token,Accept,Authorization");
-        logg.info("调用跨域处理过滤器");
-        chain.doFilter(req, res);*/
 
         HttpServletResponse httpResponse = (HttpServletResponse) res;
         HttpServletRequest httpRequest = (HttpServletRequest) req;

@@ -16,7 +16,8 @@ public enum Code {
     SYSTEM_ERROR(10001, "系统错误"),
     LOGIN_ERROR_UN_EXIST_NAME_PASSWORD(10003,"用户名或者密码为空"),
     LOGIN_ERROR_FALIE_NAME_PASSWORD(10004,"用户名或者密码为错误"),
-    REPEAT_KEYWORK(2000,"重复关键字");
+    REPEAT_KEYWORK(2000,"重复关键字"),
+    FORBIDDEN(10403,"无权限访问");
     private long code;
     private String msg;
 

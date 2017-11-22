@@ -63,14 +63,24 @@ server:
   port: 8081
   tomcat:
     uri-encoding: UTF-8
+  context-path: /manage
 
 shiro:
-  tokenheaderName: authorization
-  clientHostPortName: XForwardedFor
-  accessControlAllowMethods: POST, GET, PUT, DELETE,OPTIONS
-  accessControlAllowHeaders: Authentication,Origin, X-Requested-With, Content-Type,token,Accept,Authorization,XForwardedFor
-  accessControlMaxAge: 3600
-  accessControlAllowOrigin: http://127.0.0.1:10100
+  cors:
+    tokenheaderName: authorization
+    clientHostPortName: XForwardedFor
+    accessControlAllowMethods: POST, GET, PUT, DELETE,OPTIONS
+    accessControlAllowHeaders: Authentication,Origin, X-Requested-With, Content-Type,token,Accept,Authorization,XForwardedFor
+    accessControlMaxAge: 3600
+    accessControlAllowOrigin: http://127.0.0.1:10100
+  url:
+    login: /system/login
+    forbidden: /forbidden
+    logout: /logout
+    unLogin: /unLogin
+    index: /index
+    unauthorized: /403
+
 
 logging:
   file: biggirlo

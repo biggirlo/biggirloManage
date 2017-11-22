@@ -21,19 +21,21 @@ public class CorsConfig {
     Logger logg= Logger.getLogger(CorsConfig.class);
 
     private CorsConfig() {
-        logg.info("读取application.ymlcorsConfig配置");
-        logg.info("token-header-name:" + this.tokenheaderName);
-        logg.info("access-control-allow-methods:" + this.accessControlAllowMethods);
-        logg.info("access-control-allow-headers:" + this.accessControlAllowHeaders);
-        logg.info("access-control-maxAge:" + this.accessControlMaxAge);
-        logg.info("access-control-allow-origin:" + this.accessControlAllowOrigin);
+
         PropertySource propertySource = YamlLoadUtil.getYamlLoad("classpath:application.yml");
-        this.tokenheaderName = propertySource.getProperty("shiro.tokenheaderName").toString();
-        this.clientHostPortName = propertySource.getProperty("shiro.clientHostPortName").toString();
-        this.accessControlAllowMethods = propertySource.getProperty("shiro.accessControlAllowMethods").toString();
-        this.accessControlAllowHeaders = propertySource.getProperty("shiro.accessControlAllowHeaders").toString();
-        this.accessControlMaxAge = propertySource.getProperty("shiro.accessControlMaxAge").toString();
-        this.accessControlAllowOrigin = propertySource.getProperty("shiro.accessControlAllowOrigin").toString();
+        logg.info("读取application.ymlcorsConfig配置");
+        this.tokenheaderName = propertySource.getProperty("shiro.cors.tokenheaderName").toString();
+        logg.info("token-header-name:" + this.tokenheaderName);
+        this.clientHostPortName = propertySource.getProperty("shiro.cors.clientHostPortName").toString();
+        logg.info("access-control-allow-origin:" + this.clientHostPortName);
+        this.accessControlAllowMethods = propertySource.getProperty("shiro.cors.accessControlAllowMethods").toString();
+        logg.info("access-control-allow-methods:" + this.accessControlAllowMethods);
+        this.accessControlAllowHeaders = propertySource.getProperty("shiro.cors.accessControlAllowHeaders").toString();
+        logg.info("access-control-allow-headers:" + this.accessControlAllowHeaders);
+        this.accessControlMaxAge = propertySource.getProperty("shiro.cors.accessControlMaxAge").toString();
+        logg.info("access-control-maxAge:" + this.accessControlMaxAge);
+        this.accessControlAllowOrigin = propertySource.getProperty("shiro.cors.accessControlAllowOrigin").toString();
+        logg.info("access-control-allow-origin:" + this.accessControlAllowOrigin);
     }
     private static CorsConfig corsConfig= new CorsConfig();
     //静态工厂方法
