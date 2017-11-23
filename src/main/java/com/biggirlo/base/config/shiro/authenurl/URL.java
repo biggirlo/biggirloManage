@@ -29,6 +29,8 @@ public class URL {
      */
     private Integer isAvailable;
 
+    private String method;
+
     public String getCode() {
         return code;
     }
@@ -51,5 +53,13 @@ public class URL {
 
     public void setIsAvailable(Integer isAvailable) {
         this.isAvailable = isAvailable;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
     }
 }

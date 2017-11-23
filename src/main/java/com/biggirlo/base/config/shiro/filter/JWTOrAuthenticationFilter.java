@@ -11,18 +11,11 @@ import com.biggirlo.base.config.cors.CorsConfig;
 import com.biggirlo.base.config.shiro.ShiroApplicationConfig;
 import com.biggirlo.base.config.shiro.authenurl.URL;
 import com.biggirlo.base.config.shiro.authenurl.UrlArryListUtil;
-import com.biggirlo.base.util.YamlLoadUtil;
-import com.biggirlo.system.model.SysMenu;
-import com.biggirlo.system.util.UserLoginUtils;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
-import org.apache.shiro.web.filter.PathMatchingFilter;
+import com.biggirlo.system.model.SysHandle;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -32,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Handler;
 
 /**
  *
@@ -39,9 +33,6 @@ import java.util.List;
  * create on 2017/11/12 4:41 
  */
 public class JWTOrAuthenticationFilter extends FormAuthenticationFilter {
-
-    @Autowired
-    private UrlArryListUtil urlArryListUtil;
 
     private static final Logger log = LoggerFactory.getLogger(FormAuthenticationFilter.class);
 
@@ -82,7 +73,7 @@ public class JWTOrAuthenticationFilter extends FormAuthenticationFilter {
         HttpServletRequest httpServletRequest = WebUtils.toHttp(request);
         String url = httpServletRequest.getServletPath().toString();
         //判断是否有访问权限
-        if(this.isInAuthnUrls(url)){
+        if(this.isInAuthnUrls(url,httpServletRequest.getMethod())){
             //无权限url
             String forbiddenUrl = ShiroApplicationConfig.getInstance().getForbidden();
             forbiddenUrl += "&loginType=json";
@@ -94,12 +85,13 @@ public class JWTOrAuthenticationFilter extends FormAuthenticationFilter {
     /**
      * 是否在需要控制权限的url里面
      * @param url
+     * @param method
      * @return
      */
-    private boolean isInAuthnUrls(String url){
-        List<URL> urls = UrlArryListUtil.getInstance().getUrls();
-        for(URL urltemp : urls){
-            if(urltemp.getUrl() != null && urltemp.getUrl().equals(url))
+    private boolean isInAuthnUrls(String url,String method){
+        List<SysHandle> handles = UrlArryListUtil.getInstance().getSysHandles();
+        for(SysHandle handle : handles){
+            if(handle.getUrl() != null && handle.getUrl().equals(url) && method.equals(handle.getType()))
                 return true;
         }
         return false;

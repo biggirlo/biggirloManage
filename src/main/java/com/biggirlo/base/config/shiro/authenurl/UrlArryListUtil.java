@@ -8,7 +8,6 @@
 package com.biggirlo.base.config.shiro.authenurl;
 
 import com.biggirlo.system.model.SysHandle;
-import com.biggirlo.system.model.SysMenu;
 import com.biggirlo.system.service.SysHandleService;
 import com.biggirlo.system.service.SysMenuService;
 import org.apache.log4j.Logger;
@@ -18,16 +17,14 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
  * @author 王雁欣
  * create on 2017/11/22 22:03 
  */
-@Component
+@Component(value = "UrlArryListUtil")
 public class UrlArryListUtil implements ApplicationListener<ContextRefreshedEvent> {
     Logger logg= Logger.getLogger(UrlArryListUtil.class);
 
@@ -40,29 +37,21 @@ public class UrlArryListUtil implements ApplicationListener<ContextRefreshedEven
     private UrlArryListUtil(){
     }
 
-    private static UrlArryListUtil urlArryListUtil = null;
+    private static UrlArryListUtil handleArryListUtil = null;
     //静态工厂方法
     public static synchronized  UrlArryListUtil getInstance() {
-        return urlArryListUtil;
+        return handleArryListUtil;
     }
 
-    private List<URL> urls = new ArrayList<>();
-
-    public  List<URL> getUrls() {
-        return urls;
-    }
-
-    public void setUrls( List<URL> urls) {
-        this.urls = urls;
-    }
+    private static List<SysHandle> sysHandles = new ArrayList<>();
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        if(urlArryListUtil == null)
-            urlArryListUtil = new UrlArryListUtil();
+        if(handleArryListUtil == null)
+            handleArryListUtil = new UrlArryListUtil();
         //获取所有的url和编码
         //获取所有的接口url
-        SysMenu sysMenuSearch = new SysMenu();
+        /*SysMenu sysMenuSearch = new SysMenu();
         sysMenuSearch.setType(2L);
         List<SysMenu> sysMenuList = sysMenuService.select(sysMenuSearch);
         for(SysMenu sysMenu : sysMenuList){
@@ -70,18 +59,18 @@ public class UrlArryListUtil implements ApplicationListener<ContextRefreshedEven
             url.setCode(sysMenu.getMenuCode());
             url.setUrl(sysMenu.getUrl());
             url.setIsAvailable(1);//暂时默认启用
-            urls.add(url);
-        }
+            handleArryListUtil.getUrls().add(url);
+        }*/
 
         //获取所有的操作
-        List<SysHandle> sysHandleList = sysHandleService.selectAll();
-        for(SysHandle sysHandle:sysHandleList){
-            URL url = new URL();
-            url.setCode(sysHandle.getHandleCode());
-            url.setUrl(sysHandle.getUrl());
-            url.setIsAvailable(sysHandle.getIsAvailable());
-            urls.add(url);
-            }
+        handleArryListUtil.setSysHandles(sysHandleService.selectAll());
+    }
 
+    public static List<SysHandle> getSysHandles() {
+        return sysHandles;
+    }
+
+    public static void setSysHandles(List<SysHandle> sysHandles) {
+        UrlArryListUtil.sysHandles = sysHandles;
     }
 }
