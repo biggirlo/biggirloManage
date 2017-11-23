@@ -13,6 +13,7 @@ import com.biggirlo.base.util.Restult;
 import com.biggirlo.system.mapper.SysUserMapper;
 import com.biggirlo.system.model.SysUser;
 import com.biggirlo.system.service.SysUserService;
+import org.omg.CORBA.CODESET_INCOMPATIBLE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,5 +57,20 @@ public class SysLoginController {
     @RequestMapping(value = "/forbidden")
     public Restult forbidden(){
         return new Restult(Code.FORBIDDEN);
+    }
+
+    /**
+     * 退出登录
+     * @return
+     */
+    @RequestMapping(value = "/logout")
+    public Restult logout(){
+        try {
+            sysUserService.logout();
+            return new Restult(Code.SUCCESS);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new Restult(Code.SYSTEM_ERROR);
+        }
     }
 }

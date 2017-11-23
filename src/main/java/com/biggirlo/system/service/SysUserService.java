@@ -153,4 +153,13 @@ public class SysUserService extends BaseService<SysUser, Long> {
 
         return count;
     }
+
+    /**
+     * 退出登录
+     * @return
+     */
+    public void logout() {
+        Subject subject = SecurityUtils.getSubject(); // 获取Subject单例对象
+        subject.logout(); // 退出
+    }
 }

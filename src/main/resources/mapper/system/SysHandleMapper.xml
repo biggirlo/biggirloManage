@@ -15,7 +15,7 @@
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     </resultMap>
     <sql id="BaseTable">
-        bs_sys_handle
+        BS_SYS_HANDLE
     </sql>
     <sql id="BS_SYS_ROLE_HANDLE_Table">
         BS_SYS_ROLE_HANDLE
