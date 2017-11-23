@@ -21,7 +21,9 @@ package com.biggirlo.system.mapper;
 
 import com.biggirlo.base.mapper.BaseMapper;
 import com.biggirlo.system.jopo.jstree.TreeNode;
+import com.biggirlo.system.jopo.search.HandleRoleSearch;
 import com.biggirlo.system.model.SysHandle;
+import com.biggirlo.system.model.SysUserRole;
 
 import java.util.List;
 
@@ -45,4 +47,12 @@ public interface SysHandleMapper extends BaseMapper<SysHandle> {
      * @return
      */
     List<TreeNode> searchHandleToTreeNodeByRole(Long roId);
+
+
+    /**
+     * 根据角色获取所有的操作
+     * @param search
+     * @return
+     */
+    List<SysHandle> searchByRoles(HandleRoleSearch search);
 }

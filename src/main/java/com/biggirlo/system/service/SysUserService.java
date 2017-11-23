@@ -27,6 +27,7 @@ import com.biggirlo.base.util.Restult;
 import com.biggirlo.system.jopo.LoginUser;
 import com.biggirlo.system.mapper.SysUserMapper;
 import com.biggirlo.system.mapper.SysUserRoleMapper;
+import com.biggirlo.system.model.SysHandle;
 import com.biggirlo.system.model.SysUserRole;
 import com.biggirlo.system.util.UserLoginUtils;
 import org.apache.shiro.SecurityUtils;
@@ -57,6 +58,9 @@ public class SysUserService extends BaseService<SysUser, Long> {
 
     @Autowired
     private SysUserRoleService sysUserRoleService;
+
+    @Autowired
+    private SysHandleService sysHandleService;
 
     /**
      * 保存编辑的数据
@@ -118,9 +122,15 @@ public class SysUserService extends BaseService<SysUser, Long> {
         SysUserRole sysUserRoleSearch = new SysUserRole();
         sysUserRoleSearch.setUserId(dataUser.getId());
         List<SysUserRole> userRoles = sysUserRoleService.select(sysUserRoleSearch);
+        //获取所有操作权限的操作列表
+        List<SysHandle> sysHandles = sysHandleService.getHandleByRoles(userRoles);
+
         //设置缓存
         subject.getSession().setAttribute(UserLoginUtils.LOGIN_USER_SESSION_NAME,loginUser);
         subject.getSession().setAttribute(UserLoginUtils.LOGIN_USER_ROLES_NAME,userRoles);
+        subject.getSession().setAttribute(UserLoginUtils.LOGIN_USER_HANDLE_NAME,sysHandles);
+
+
         return new Restult(Code.SUCCESS,subject.getSession().getId());
     }
 

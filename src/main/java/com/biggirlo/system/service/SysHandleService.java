@@ -32,14 +32,15 @@ import com.biggirlo.base.util.Restult;
 import com.biggirlo.system.jopo.jstree.Data;
 import com.biggirlo.system.jopo.jstree.TreeNode;
 import com.biggirlo.system.jopo.jstree.TreeNodeType;
+import com.biggirlo.system.jopo.search.HandleRoleSearch;
+import com.biggirlo.system.jopo.search.MenuRoleSearch;
 import com.biggirlo.system.mapper.SysRoleHandleMapper;
-import com.biggirlo.system.model.SysRoleHandle;
-import com.biggirlo.system.model.SysUser;
+import com.biggirlo.system.model.*;
 import com.biggirlo.system.util.UserLoginUtils;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.biggirlo.system.model.SysHandle;
 import com.biggirlo.system.mapper.SysHandleMapper;
 
 /**
@@ -120,6 +121,17 @@ public class SysHandleService extends BaseService<SysHandle, Long> {
     }
 
     /**
+     * 根据角色获取所有的操作
+     * @param sysRoles
+     * @return
+     */
+    public List<SysHandle> getHandleByRoles(List<SysUserRole> sysRoles){
+        HandleRoleSearch search = new HandleRoleSearch();
+        search.setRoles(sysRoles);
+        return sysHandleMapper.searchByRoles(search);
+    }
+
+    /**
      * 批量删除
      * @param ids
      * @return
@@ -165,4 +177,5 @@ public class SysHandleService extends BaseService<SysHandle, Long> {
                 return i;
         return  -1;
     }
+
 }

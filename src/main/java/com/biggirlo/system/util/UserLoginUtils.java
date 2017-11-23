@@ -23,6 +23,9 @@ public class UserLoginUtils {
     public static final String LOGIN_USER_ROLES_NAME = "userRoles";
     //用户菜单
     public static final String LOGIN_USER_MENUS_NAME ="userMenus";
+    //用户操作
+    public static final String LOGIN_USER_HANDLE_NAME ="userHandles";
+
 
 
     //默认密码

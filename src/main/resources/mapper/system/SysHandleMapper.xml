@@ -17,6 +17,9 @@
     <sql id="BaseTable">
         bs_sys_handle
     </sql>
+    <sql id="BS_SYS_ROLE_HANDLE_Table">
+        BS_SYS_ROLE_HANDLE
+    </sql>
     <sql id="BaseColumns">
         id,menu_id,handle_code,name,url,type,is_available,create_time,create_by,update_by,update_time
     </sql>
@@ -47,6 +50,20 @@
 	        when ISNULL(bsrh.role_id) then FALSE
 	        ELSE TRUE
        end as isSelect
-        FROM `BS_SYS_HANDLE` bsh LEFT JOIN BS_SYS_ROLE_HANDLE bsrh on bsh.id = bsrh.handle_id and bsrh.role_id = #{roId}
+        FROM `BS_SYS_HANDLE` bsh LEFT JOIN  <include refid="BS_SYS_ROLE_HANDLE_Table" /> bsrh on bsh.id = bsrh.handle_id and bsrh.role_id = #{roId}
+    </select>
+
+    <!--根据角色获取所有可执行的操作-->
+    <select id="searchByRoles" resultMap="BaseResultMap" parameterType="com.biggirlo.system.jopo.search.HandleRoleSearch">
+        SELECT <include refid="BaseColumns" />
+        FROM <include refid="BaseTable" />  WHERE  id in(
+		SELECT handle_id from <include refid="BS_SYS_ROLE_HANDLE_Table" />
+		<where>
+            role_id in
+          <foreach collection="roles" item="role" open="(" separator="," close=")">
+              #{role.roleId}
+          </foreach>
+        </where>
+        )
     </select>
 </mapper>

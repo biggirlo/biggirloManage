@@ -12,6 +12,10 @@ import com.biggirlo.base.config.shiro.ShiroApplicationConfig;
 import com.biggirlo.base.config.shiro.authenurl.URL;
 import com.biggirlo.base.config.shiro.authenurl.UrlArryListUtil;
 import com.biggirlo.system.model.SysHandle;
+import com.biggirlo.system.model.SysMenu;
+import com.biggirlo.system.util.UserLoginUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
@@ -72,8 +76,15 @@ public class JWTOrAuthenticationFilter extends FormAuthenticationFilter {
                              ServletResponse response) throws IOException {
         HttpServletRequest httpServletRequest = WebUtils.toHttp(request);
         String url = httpServletRequest.getServletPath().toString();
+
+        //获取登录用户所拥有的角色
+        Subject subject = SecurityUtils.getSubject(); // 获取Subject单例对象
+        List<SysHandle> sysHandles = (List<SysHandle>) subject.getSession().getAttribute(UserLoginUtils.LOGIN_USER_HANDLE_NAME);
+
         //判断是否有访问权限
-        if(this.isInAuthnUrls(url,httpServletRequest.getMethod())){
+        if(this.isInAuthUrls(url,httpServletRequest.getMethod(),UrlArryListUtil.getInstance().getSysHandles())
+                && !this.isInAuthUrls(url,httpServletRequest.getMethod(),sysHandles)
+                ){
             //无权限url
             String forbiddenUrl = ShiroApplicationConfig.getInstance().getForbidden();
             forbiddenUrl += "&loginType=json";
@@ -82,18 +93,19 @@ public class JWTOrAuthenticationFilter extends FormAuthenticationFilter {
         }
     }
 
+
     /**
-     * 是否在需要控制权限的url里面
+     * 判断是否在操作权限里面
      * @param url
-     * @param method
+     * @param sysHandles
      * @return
      */
-    private boolean isInAuthnUrls(String url,String method){
-        List<SysHandle> handles = UrlArryListUtil.getInstance().getSysHandles();
-        for(SysHandle handle : handles){
+    private boolean isInAuthUrls(String url, String method ,List<SysHandle> sysHandles) {
+        for(SysHandle handle : sysHandles){
             if(handle.getUrl() != null && handle.getUrl().equals(url) && method.equals(handle.getType()))
                 return true;
         }
         return false;
     }
+
 }
