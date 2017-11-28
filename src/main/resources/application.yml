@@ -72,7 +72,7 @@ shiro:
     accessControlAllowMethods: POST, GET, PUT, DELETE,OPTIONS
     accessControlAllowHeaders: Authentication,Origin, X-Requested-With, Content-Type,token,Accept,Authorization,XForwardedFor
     accessControlMaxAge: 3600
-    accessControlAllowOrigin: http://127.0.0.1:10100
+    accessControlAllowOrigin: http://127.0.0.1:10100,http://localhost:8080
   url:
     login: /system/login
     forbidden: /forbidden

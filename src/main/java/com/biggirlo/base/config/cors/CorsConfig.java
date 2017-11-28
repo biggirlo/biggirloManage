@@ -27,14 +27,14 @@ public class CorsConfig {
         this.tokenheaderName = propertySource.getProperty("shiro.cors.tokenheaderName").toString();
         logg.info("token-header-name:" + this.tokenheaderName);
         this.clientHostPortName = propertySource.getProperty("shiro.cors.clientHostPortName").toString();
-        logg.info("access-control-allow-origin:" + this.clientHostPortName);
+        logg.info("access-control-port-name:" + this.clientHostPortName);
         this.accessControlAllowMethods = propertySource.getProperty("shiro.cors.accessControlAllowMethods").toString();
         logg.info("access-control-allow-methods:" + this.accessControlAllowMethods);
         this.accessControlAllowHeaders = propertySource.getProperty("shiro.cors.accessControlAllowHeaders").toString();
         logg.info("access-control-allow-headers:" + this.accessControlAllowHeaders);
         this.accessControlMaxAge = propertySource.getProperty("shiro.cors.accessControlMaxAge").toString();
         logg.info("access-control-maxAge:" + this.accessControlMaxAge);
-        this.accessControlAllowOrigin = propertySource.getProperty("shiro.cors.accessControlAllowOrigin").toString();
+        this.accessControlAllowOrigin = propertySource.getProperty("shiro.cors.accessControlAllowOrigin").toString().split(",");
         logg.info("access-control-allow-origin:" + this.accessControlAllowOrigin);
     }
     private static CorsConfig corsConfig= new CorsConfig();
@@ -55,7 +55,7 @@ public class CorsConfig {
 
     private String accessControlMaxAge;
 
-    private String accessControlAllowOrigin;
+    private String[] accessControlAllowOrigin;
 
     public String getTokenheaderName() {
         return tokenheaderName;
@@ -89,11 +89,11 @@ public class CorsConfig {
         this.accessControlMaxAge = accessControlMaxAge;
     }
 
-    public String getAccessControlAllowOrigin() {
+    public String[] getAccessControlAllowOrigin() {
         return accessControlAllowOrigin;
     }
 
-    public void setAccessControlAllowOrigin(String accessControlAllowOrigin) {
+    public void setAccessControlAllowOrigin(String[] accessControlAllowOrigin) {
         this.accessControlAllowOrigin = accessControlAllowOrigin;
     }
 
