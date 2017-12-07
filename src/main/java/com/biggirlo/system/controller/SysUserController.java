@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.biggirlo.system.model.SysUser;
 import com.biggirlo.system.service.SysUserService;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -85,7 +86,7 @@ public class SysUserController {
      * @return
      */
     @RequestMapping(value = "/info",method = RequestMethod.POST)
-    public Object save(@RequestBody SysUser user){
+    public Object save(SysUser user,MultipartHttpServletRequest request){
         try{
             return sysUserService.save(user);
         }catch (Exception e){
